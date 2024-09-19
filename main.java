@@ -9,7 +9,7 @@ class main{
         int pro = s.nextInt();
 
         int[][] programerPreferences = new int[pro][pro];
-        int[][] companyPreferences = new int[pro][pro];
+        char[][] companyPreferences = new char[pro][pro];
         char[] alphabet = {'a', 'b' , 'c', 'd', 'e', 'f', 'g'};
 
         for(int i = 0; i < pro; i++){
@@ -21,7 +21,7 @@ class main{
         for(int x = 0; x < pro; x++){
             System.out.println("Insert preferences for company " + x);
             for(int y = 0; y <pro; y++){
-                companyPreferences[x][y] = s.nextInt();
+                companyPreferences[x][y] = s.next().charAt(0);
             }
         }
 
