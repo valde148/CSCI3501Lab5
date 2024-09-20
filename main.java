@@ -11,26 +11,28 @@ class main{
         System.out.println("Enter about of Programers: ");
         int pro = s.nextInt();
 
-        int[][] programerPreferences = new int[pro][pro];
-        int[][] companyPreferences = new int[pro][pro];
-        // int[][] programerPreferences = {{1, 2, 0}, {0, 1 , 2}, {2, 1, 0}};
-        // int[][] companyPreferences = {{1,2,0},{0,1,2},{2,1,0}};
+        // int[][] programerPreferences = new int[pro][pro];
+        // int[][] companyPreferences = new int[pro][pro];
+        int[][] programerPreferences = {{1, 2, 0}, {0, 1 , 2}, {2, 1, 0}};
+        int[][] companyPreferences = {{1,2,0},{0,1,2},{2,1,0}};
 
         char[] alphabet = {'a', 'b' , 'c', 'd', 'e', 'f', 'g'};
 
-        for(int i = 0; i < pro; i++){
-            System.out.println("Insert preferences for programmer  " + i );
-            for(int j = 0; j < pro; j++){
-                programerPreferences [i][j] = s.nextInt();
-            }
-        }
-        for(int x = 0; x < pro; x++){
-            System.out.println("Insert preferences for company " + x);
-            for(int y = 0; y <pro; y++){
-                companyPreferences [x][y] = s.nextInt();
-                //companyPreferences[x][y] = s.next().charAt(0);
-            }
-        }
+        // for(int i = 0; i < pro; i++){
+        //     System.out.println("Insert preferences for programmer  " + i );
+        //     for(int j = 0; j < pro; j++){
+        //         programerPreferences [i][j] = s.nextInt();
+        //     }
+        // }
+        // for(int x = 0; x < pro; x++){
+        //     System.out.println("Insert preferences for company " + x +"\n please enter letters in integer form ie. a = 0, b = 1, c = 2");
+        //     for(int y = 0; y <pro; y++){
+        //         companyPreferences [x][y] = s.nextInt();
+        //         //companyPreferences[x][y] = s.next().charAt(0);
+        //     }
+        // }
+        s.close();
+        
         int[] matches = match(programerPreferences, companyPreferences);
 
         System.out.println("Preferences in Array form \nprogramers:      companies:");
@@ -40,11 +42,13 @@ class main{
         }
 
 
-        for (int i : matches) {
-            // if(i % 2 == 0) {
-            //     System.out.println(alphabet[i]);
-            // } else System.out.println(i);
-            System.out.println(i);
+        for (int i = 0; i < matches.length; i++) { //int i : matches) {
+            if(i % 2 == 0) {
+                System.out.println("Match #"+ i/2);
+            //     System.out.println(i);
+            //     // System.out.println(i +1);
+            } //else System.out.println(alphabet[i]);
+            System.out.println(matches[i]);
         }
     }
 
