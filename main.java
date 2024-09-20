@@ -30,5 +30,33 @@ class main{
             int companyId = i + 1;
             System.out.println(alphabet[i] + Arrays.toString(programerPreferences[i]) + "          " + companyId + Arrays.toString(companyPreferences[i]));
         }
+
+        matchMaker(programerPreferences, companyPreferences);
     }
+
+    public static void matchMaker(int[][] programerPreferences, char[][] companyPreferences) {
+        Boolean[] programerPlaced = new Boolean[programerPreferences[0].length];
+        Arrays.fill(programerPlaced, false);
+        Boolean[] companyOccupied = new Boolean[programerPreferences[0].length];
+        Arrays.fill(companyOccupied, false);
+        for (int i = 0; i < programerPreferences[1].length; i++) { //goes through all rounds
+            for (int j = 0; j < programerPreferences.length; j++) { //for each applicant
+                if (!programerPlaced[j]) { // if applicatnt is not placed
+                    int intendedCompanyID = programerPreferences[j][i]; //record intended company
+                    int[] applicants = new int[programerPreferences[0].length]; //create array for all other applicants going for same company
+                    Arrays.fill(applicants, 0);
+                    for (int k = 0; k < applicants.length; k++) {
+                        if(!programerPlaced[k] && programerPreferences[j][i] == intendedCompanyID) {
+                            // if other applicant is not placed and is interested in same company, mark as interested
+                            applicants[k] = 1;
+                        }
+                    }
+                    for (int k = 0; k < applicants.length; k++) {
+                        if (applicants[k] == 1 && )
+                    }
+                }
+            }
+        }
+    }
+
 }
