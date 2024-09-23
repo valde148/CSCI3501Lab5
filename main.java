@@ -14,13 +14,9 @@ class main{
 
         // int[][] programerPreferences = new int[pro][pro];
         // int[][] companyPreferences = new int[pro][pro];
-        int[][] programerPreferences = {{1, 2, 0}, {0, 1 , 2}, {2, 1, 0}};
-        char[][] companyPreferences = {{'a','b','c'}, {'c','b','a'}, {'b','c','a'}};
-        int[][] companyPreferencesTranslated = {{1,2,0},{0,1,2},{2,1,0}};
-
-        char[] alphabet = {'a', 'b' , 'c', 'd', 'e', 'f', 'g'};
-
-        
+        int[][] companyPreferences = {{1, 2, 0}, {0, 1 , 2}, {2, 1, 0}};
+        char[][] programerPreferences = {{'a','b','c'}, {'c','b','a'}, {'b','c','a'}};
+        int[][] programerPreferencesTranslated = {{1,2,0},{0,1,2},{2,1,0}};
 
         // for(int i = 0; i < pro; i++){
         //     System.out.println("Insert preferences for programmer  " + i );
@@ -29,33 +25,37 @@ class main{
         //     }
         // }
         // for(int x = 0; x < pro; x++){
-        //     System.out.println("Insert preferences for company " + x +"\n please enter letters in integer form ie. a = 0, b = 1, c = 2");
+        //     System.out.println("Insert preferences for company " + x);
         //     for(int y = 0; y <pro; y++){
         //         companyPreferences [x][y] = s.nextInt();
         //         //companyPreferences[x][y] = s.next().charAt(0);
         //     }
         // }
+        // int[][] companyPreferencesTranslated = translator(companyPreferences);
         s.close();
         
-        int[] matches = match(programerPreferences, companyPreferencesTranslated);
+        int[] matches = match(companyPreferences, programerPreferencesTranslated);
 
         System.out.println("Preferences in Array form \nprogramers:      companies:");
         for (int i = 0; i < pro; i++) {
-            int companyId = i + 1;
-            System.out.println(alphabet[i] + Arrays.toString(programerPreferences[i]) + "          " + companyId + Arrays.toString(companyPreferences[i]));
+            int programerId = i + 1;
+            // char c = (char) i;
+            System.out.println(programerId + Arrays.toString(programerPreferences[i]) + "          " + (char)i + Arrays.toString(companyPreferences[i]));
         }
 
 
-        for (int i = 0; i < matches.length; i++) { //int i : matches) {
+        for (int i = 0; i < matches.length; i++) {
             if(i % 2 == 0) {
                 System.out.println("Match #"+ i/2);
-            //     System.out.println(i);
+                System.out.println(matches[i]);
             //     // System.out.println(i +1);
-            } //else System.out.println(alphabet[i]);
-            System.out.println(matches[i]);
+            } else {
+                // char company = (char) matches[i];
+                System.out.println((char)matches[i]);
+            }
         }
     }
-    public static int[][] translator(char[][] companyPreferences, char[] alphabet){
+    public static int[][] translator(char[][] companyPreferences){
         int[][] companyPreferencesTranslated = new int[companyPreferences.length][companyPreferences[0].length];
         for (int i = 0; i < companyPreferences.length; i++) {
             for (int j = 0; j < companyPreferences[0].length; j++) {
