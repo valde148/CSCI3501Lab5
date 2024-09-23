@@ -1,3 +1,4 @@
+// Armando and El
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,9 +15,12 @@ class main{
         // int[][] programerPreferences = new int[pro][pro];
         // int[][] companyPreferences = new int[pro][pro];
         int[][] programerPreferences = {{1, 2, 0}, {0, 1 , 2}, {2, 1, 0}};
-        int[][] companyPreferences = {{1,2,0},{0,1,2},{2,1,0}};
+        char[][] companyPreferences = {{'a','b','c'}, {'c','b','a'}, {'b','c','a'}};
+        int[][] companyPreferencesTranslated = {{1,2,0},{0,1,2},{2,1,0}};
 
         char[] alphabet = {'a', 'b' , 'c', 'd', 'e', 'f', 'g'};
+
+        
 
         // for(int i = 0; i < pro; i++){
         //     System.out.println("Insert preferences for programmer  " + i );
@@ -33,7 +37,7 @@ class main{
         // }
         s.close();
         
-        int[] matches = match(programerPreferences, companyPreferences);
+        int[] matches = match(programerPreferences, companyPreferencesTranslated);
 
         System.out.println("Preferences in Array form \nprogramers:      companies:");
         for (int i = 0; i < pro; i++) {
@@ -50,6 +54,16 @@ class main{
             } //else System.out.println(alphabet[i]);
             System.out.println(matches[i]);
         }
+    }
+    public static int[][] translator(char[][] companyPreferences, char[] alphabet){
+        int[][] companyPreferencesTranslated = new int[companyPreferences.length][companyPreferences[0].length];
+        for (int i = 0; i < companyPreferences.length; i++) {
+            for (int j = 0; j < companyPreferences[0].length; j++) {
+                char c = (char) companyPreferences[i][j];
+                companyPreferencesTranslated[i][j] = c;
+            }
+        }
+        return companyPreferencesTranslated;
     }
 
     static int[] match(int[][] programerPreferences, int[][] companyPreferences) {
