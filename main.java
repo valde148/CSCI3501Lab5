@@ -1,5 +1,4 @@
 // Armando and El
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -14,12 +13,12 @@ class main{
         //user entries:
         //int[][] companyPreferences1 = {{2, 3, 1}, {1, 2, 3}, {3, 2, 1}}; //this is what is entered on the user side
         //char[][] programerPreferences1 = {{'a','b','c'}, {'c','b','a'}, {'b','c','a'}}; //this is what is entered on the user side
-        //what the program receives: 
-        //index equivalents of intended matches
-        int[][] companyPreferencesTranslated1 = {{1, 2, 0}, {0, 1 , 2}, {2, 1, 0}};
-        int[][] programerPreferencesTranslated1 = {{0,1,2},{2,1,0},{1,2,0}};
-        int[] expected = {1, 0, 0, 1, 2, 2};
-        int[] returned = match(companyPreferencesTranslated1, programerPreferencesTranslated1);
+        //what the program receives: index equivalents of intended matches
+        int[][] programerPreferencesTranslated1 = {{1, 2, 0}, {0, 1 , 2}, {2, 1, 0}};
+        int[][] companyPreferencesTranslated1 = {{0,1,2},{2,1,0},{1,2,0}};
+        int[] expected = {1,0,2}; //programer with id one will match with company b, 2, with a, three with c
+        int[] returned = match(programerPreferencesTranslated1, companyPreferencesTranslated1);
+
         System.out.println("test one status:" + (Arrays.equals(expected, returned)));
 
         //test 2x2
@@ -27,12 +26,27 @@ class main{
         //char[][] programerPreferences2 = {{'a','b'},{'b','a'}};
         int[][] companyPreferencesTranslated2 = {{0,1},{0,1}};
         int[][] programerPreferencesTranslated2 = {{0,1},{1,0}};
-        int[] expected2 = {0, 0, 1, 1};
-        int[] returned2 = match(companyPreferencesTranslated2, programerPreferencesTranslated2);
+        int[] expected2 = {0, 1};
+        int[] returned2 = match(programerPreferencesTranslated2, companyPreferencesTranslated2);
         System.out.println("test two status:" + (Arrays.equals(expected2, returned2)));
 
+        // Armando Test 1
+        int[][] programerPreferencesTranslated3 = {{0,1,2},{1,0,2},{2,0,1}};
+        int[][] companyPreferencesTranslated3 = {{1,0,2},{0,1,2},{2,1,0}};
+        int[] expected3 = {0,1,2};
+        int[] returned3 = match(programerPreferencesTranslated3, companyPreferencesTranslated3);
+        System.out.println("test three status: " + (Arrays.equals(expected3,returned3)));
+
+        //Armando test 2
+        int[][] programerPreferencesTranslated4 = {{0,1,2},{2,1,0},{1,2,0}};
+        int[][] companyPreferencesTranslated4 = {{1,2,0},{0,1,2},{2,0,1}};
+        int[] expected4 = {0,2,1};
+        int[] returned4 = match(programerPreferencesTranslated4, companyPreferencesTranslated4);
+        System.out.println("test four status: " + (Arrays.equals(expected4,returned4)));
+        // Ends tests
+
         Scanner s = new Scanner(System.in);
-        System.out.println("Enter amount of Programers: ");
+        System.out.println("Enter amount of Programers & Companies: ");
         int pro = s.nextInt();
 
         //array constructors
@@ -47,8 +61,9 @@ class main{
                 programerPreferencesScanner[1][j] = input1[j];
         }
         //processes rest of inputs
+        System.out.println("Please enter programer preferences by typing each of the company Id's (letters) on one line with no spaces or commas");
         for (int i = 0; i < pro; i++) {
-            System.out.println("insert programer " + (i+1) + "'s preferences \nplease enter on one line with no spaces or commas");
+            System.out.println("insert programer " + (i+1) + "'s preferences");
             String inputString = s.nextLine().toLowerCase();
             char[] input = inputString.toCharArray();
             for (int j = 0; j < input.length; j++) {
@@ -57,8 +72,9 @@ class main{
         }
         
         //processes inputs for company preferences
+        System.out.println("Please enter company preferences by typing each of the programer ID's (number) on a new line");
         for (int i = 0; i < pro; i++) {
-            System.out.println("insert preferences for company " + alphabet[i] + "\nplease enter each programer id number on a new line");
+            System.out.println("insert preferences for company " + alphabet[i]);
             for (int j = 0; j < pro; j++) {
                 companyPreferencesScanner[i][j] = s.nextInt();
                 companyPreferencesTranslatedScanner[i][j] = companyPreferencesScanner[i][j] -1;
@@ -69,7 +85,7 @@ class main{
         //translates user imputed programer preferences to something our method understands
         int[][] programerPreferencesTranslated = translator(programerPreferencesScanner);
         //calls match method
-        int[] matches = match(companyPreferencesTranslatedScanner, programerPreferencesTranslated);
+        int[] matches = match(programerPreferencesTranslated, companyPreferencesTranslatedScanner);
 
         //print statements
         System.out.println("Preferences in Array form \nprogramers:      companies:");
@@ -78,13 +94,9 @@ class main{
             // String c = Integer.toString(i + 1);
             System.out.println(programerId + Arrays.toString(programerPreferencesScanner[i]) + "          " + alphabet[i] + Arrays.toString(companyPreferencesScanner[i]));
         }
+        System.out.println("\nMatching results:");
         for (int i = 0; i < matches.length; i++) {
-            if(i % 2 == 0) {
-                System.out.println("Match #"+ (i/2 + 1));
-                System.out.println(matches[i] +1);
-            } else {
-                System.out.println(alphabet[matches[i]]);
-            }
+            System.out.println("Programmer " + (matches[i] + 1) + " matched with Company " + alphabet[i]);
         }
     }
 
@@ -103,69 +115,59 @@ class main{
     }
 
     static int[] match(int[][] programerPreferences, int[][] companyPreferences) {
-        // array construction
-        // temp tracks current pairs
-        // programersFree and companiesFree track who is not paired
-        // stillFree tracks who is still free
-        Map<Integer, Integer> temp = new HashMap<>();
         int size = programerPreferences.length;
+        Map<Integer, Integer> matches = new HashMap<>();
         boolean[] programersFree = new boolean[size];
         boolean[] companiesFree = new boolean[size];
         Arrays.fill(programersFree, true);
         Arrays.fill(companiesFree, true);
-        ArrayList<Integer> stillFree = new ArrayList<>();
 
-        while(stillFree.size() + temp.size() < size){ //while there is still unpaired people
-            for (int i = 0; i < companiesFree.length; i++) { // go through free companies
-                if (programersFree[i]) { //if the a programer is free
-                    for(int j = 0; j < size; j++){ //for each of the companies they are interested in
-                        if (companiesFree[programerPreferences[i][j]]) { //if the company is free
-                            temp.put(programerPreferences[i][j], i); // log pair
-                            programersFree[i] = false; //mark taken
-                            companiesFree[programerPreferences[i][j]] = false; // mark taken
+        while (matches.size() < size) {
+            for (int i = 0; i < size; i++) {
+                if (programersFree[i]) {
+                    //the programmer i ask to their next preferred company
+                    for (int j = 0; j < size; j++) {
+                        int company = programerPreferences[i][j];
+                        if (companiesFree[company]) {
+                            // the company if avalible, they accept the proposal
+                            matches.put(company, i);
+                            programersFree[i] = false;
+                            companiesFree[company] = false;
                             break;
                         } else {
-                            int possibleProgramer = programerPreferences[i][j]; //else record index of programer
-                            boolean match = checkMatch(possibleProgramer, i , programerPreferences[i][j], companyPreferences); //check if possibleProgram has higher interest from company than current hire
-                            if(!match){
-                                // replace current match with new programer
-                                temp.put(programerPreferences[i][j], i);
+                            // the company already has a programmer, they will see if they prefer the new one
+                            int currentProgrammer = matches.get(company);
+                            boolean preferNew = checkMatch(currentProgrammer, i, company, companyPreferences);
+                            if (preferNew) {
+                                //the company switches to the new programmer if it is a better choice
+                                matches.put(company, i);
                                 programersFree[i] = false;
-                                programersFree[possibleProgramer] = true;
+                                programersFree[currentProgrammer] = true;
                                 break;
                             }
                         }
                     }
-                    if (programersFree[i]) {
-                        //log that programer needs to go through the process again
-                        stillFree.add(i);
-                    }
                 }
-            }            
-        }
-        // puts matched pairs from the hashMap to an array to be returned
-        int[] matchedPairs = new int[2*temp.size()];
-            int i = 0;
-            for(Map.Entry<Integer, Integer> entry : temp.entrySet()) {
-                matchedPairs[i] = entry.getValue();
-                i++;
-                matchedPairs[i] = entry.getKey();
-                i++;
             }
+        }
+        int[] matchedPairs = new int[size];
+        for (Map.Entry<Integer, Integer> entry : matches.entrySet()) {
+            matchedPairs[entry.getKey()] = entry.getValue();
+        }
         return matchedPairs;
+
     }
 
-    static boolean checkMatch(int possibleProgramer, int currentProgramer, int company, int[][] companyPreferences) {
-        int p = 0; //index of possible possibleProgramer
-        int c = 0; //index of currentProgramer
-        for (int i = 0; i < companyPreferences.length; i++) {
-            //for each of the programers the company is interested in, record if the possibleProgramer or current hire is higher
-            if(companyPreferences[company][i] == possibleProgramer) {
-                p = i;
-            } else if (companyPreferences[company][i] == currentProgramer){
-                c = i;
+    // it will check if the company wants the new programmer over the last pick
+    static boolean checkMatch(int currentProgrammer, int newProgrammer, int company, int[][] companyPreferences) {
+        for (int i = 0; i < companyPreferences[company].length; i++) {
+            if (companyPreferences[company][i] == newProgrammer) {
+                return true; // new programmer is picked over the last one
+            }
+            if (companyPreferences[company][i] == currentProgrammer) {
+                return false; // if the current programmer is picked
             }
         }
-        return p < c; // respond if the possible programer is of higher interest
+        return false;
     }
 }

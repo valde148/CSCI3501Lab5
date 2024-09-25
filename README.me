@@ -1,3 +1,111 @@
-Todo:
-- Armando - values to test on
-- Armando- Questions
+The conclusion
+
+Test Case 1: Programmers & Companies
+Programmer Preferences:
+Programmer 1: [0, 1, 2]
+Programmer 2: [1, 0, 2]
+Programmer 3: [2, 0, 1]
+
+Company Preferences:
+Company A: [1, 0, 2]
+Company B: [0, 1, 2]
+Company C: [2, 1, 0]
+Algorithm Execution:
+Step 1:
+Programmer 1 picks Company A their top choice.
+Company A accepts , they are free.
+Step 2:
+Programmer 2 picks Company B their top choice.
+Company B accepts, since they are free.
+Step 3:
+Programmer 3 picks Company C their top choice.
+Company C accepts, since they are free.
+Final Matching:
+Programmer 1 is matched with Company A
+Programmer 2 is matched with Company B
+Programmer 3 is matched with Company C
+
+
+Test Case 2 : Programmers & Companies
+Programmer Preferences:
+Programmer 1: [0, 1, 2]
+Programmer 2: [2, 1, 0]
+Programmer 3: [1, 2, 0]
+
+Company Preferences:
+Company A: [1, 2, 0]
+Company B: [0, 1, 2]
+Company C: [2, 0, 1]
+Steps:
+Programmer 1 asks Company A, and Company A accepts.
+Programmer 2 asks Company C, and Company C accepts.
+Programmer 3 asks Company B, and Company B acce pts.
+Final Matching:
+Programmer 1 matched with Company A
+Programmer 2 matched with Company C
+Programmer 3 matched with Company B
+
+
+Test Case 3: Larger Dataset (5 Programmers, 5 Companies)
+Programmer Preferences:
+Programmer 1: [1, 0, 2, 3, 4]
+Programmer 2: [0, 1, 3, 4, 2]
+Programmer 3: [2, 0, 1, 4, 3]
+Programmer 4: [4, 3, 2, 1, 0]
+Programmer 5: [0, 2, 3, 1, 4]
+
+Company Preferences:
+Company A: [1, 2, 3, 4, 0]
+Company B: [0, 3, 1, 2, 4]
+Company C: [2, 4, 1, 0, 3]
+Company D: [4, 2, 1, 0, 3]
+Company E: [0, 1, 2, 4, 3]
+
+Fianl mathcing:
+Programmer 1 matched with Company B
+Programmer 2 matched with Company A
+Programmer 3 matched with Company C
+Programmer 4 matched with Company E
+Programmer 5 matched with Company D
+
+
+Why the Algorithm is Correct?
+The Algorithm Always Stops,
+The algorithm will always come to an end because each programmer only gets to ask each company 
+one time whether they can work there. There are a fixed number of programmers and companies, 
+and each programmer can only ask each company once. If a programmer gets rejected, they move on 
+to the next company in their list. Eventually, all programmers will either get a job at a company, 
+or they will have asked all the companies and the process will end. The worst case is that every 
+programmer asks every company, but the process won’t go on forever.The pairing we get at the end
+is "satisfactory" because we don’t have any situations where:
+
+A programmer is unhappy with their job and prefers a different company.
+The company also prefers that programmer over the person they currently hired.
+
+Programmers apply to the companies they like best first.
+Companies don’t immediately accept all applications. They hold out for the best option based on who 
+has applied. If they find someone they like more than their current hire, they drop the old one and 
+take the new person. This way, companies always end up with the best programmer they could get, and 
+programmers end up with the best company that accepted them. This guarantees that no programmer or 
+company would rather switch to another option after the process is done. This approach is based on
+a famous method called the Gale Shapley algorithm. It’s been mathematically proven to always find a 
+solution where no one is unhappy enough to want to switch to a stable solution. The way it works is 
+by having programmers "apply" to companies and companies only saying "yes" if it’s a good option for 
+them. Because of the way this back and forth works, the final result will always be a stable match.
+Since the programmers are the ones doing the asking, the final result tends to be better for them. 
+Each programmer gets the best company that they could possibly get based on how companies respond. 
+The algorithm will always stop because each programmer has a limited number of companies they can 
+apply to. It will always give a result where no one would want to swap with someone else after the 
+matching is done. This approach is based on a well-proven theory (Gale Shapley) that ensures the 
+matching will be stable. The programmers get the best possible deal for themselves. So, the algorithm 
+works because it’s designed to reach a fair solution for everyone and it can’t go on forever.
+
+the worst case, the number of steps it takes grows with the square of 
+the number of participants (programmers and companies). This happens 
+because each programmer might have to go through all the companies before
+finding a match, and each company may have to consider multiple proposals 
+before choosing the best one. So, if there are 10 programmers and 10 companies, 
+the algorithm could take up to 100 steps. The space complexity is also O(N²) 
+because the program needs to store all the preferences for both the programmers 
+and companies, which adds up quickly as more participants are added. This means 
+the program will take more memory and time as the number of participants increases
