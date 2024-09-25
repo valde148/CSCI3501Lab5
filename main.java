@@ -82,9 +82,7 @@ class main{
             if(i % 2 == 0) {
                 System.out.println("Match #"+ (i/2 + 1));
                 System.out.println(matches[i] +1);
-            //     // System.out.println(i +1);
             } else {
-                // char company = (char) matches[i];
                 System.out.println(alphabet[matches[i]]);
             }
         }
